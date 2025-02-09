@@ -1,0 +1,117 @@
+[project]
+name = "classwork-pythonaiintegrateddevelopment"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13.2,<3.14"
+dependencies = [
+    "rich>=13.9.4",
+    "python-dotenv>=1.0.1",
+    "pandas[excel]>=2.2.3",
+    "matplotlib>=3.10.0",
+    "seaborn>=0.13.2",
+    "joblib>=1.4.2",
+    "scikit-learn>=1.6.1",
+]
+
+[project.urls]
+Repository = "https://git.thebarkingdog.tw/tbd/phone-service"
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.1.0",
+    "ruff>=0.9.4",
+    "mypy>=1.15.0",
+    "commitizen>=4.1.1",
+    "cz-conventional-gitmoji>=0.6.1",
+]
+type = ["pandas-stubs>=2.2.3.241126"]
+jupyter = ["notebook>=7.3.2", "ipywidgets>=8.1.5"]
+
+
+# ruff
+# <https://docs.astral.sh/ruff/settings/>
+[tool.ruff]
+required-version = ">=0.9.4"
+target-version = "py313"
+output-format = "concise"
+show-fixes = true
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    ### Intentionally disabled
+    "T201",   # print found
+    "E402",   # Module level import not at top of cell
+    "E501",   # line-too-long (format 會自動處理)
+    "COM819", # prohibited-trailing-commas (與 ruff format 同時使用時候，執行順序將影響結果)
+    "COM812", # missing-trailing-comma (會與 ruff format 衝突)
+    "ISC001", # ingle-line-implicit-string-concatenation (會與 ruff format 衝突)
+
+    "S101",   # assert  (不允許使用 assert)
+    "RUF001", # ambiguous-unicode-character-string (不要使用不明確的 Unicode 字元)
+    "RUF002", # ambiguous-unicode-character-docstring (不要使用不明確的 Unicode 字元)
+    "RUF003", # ambiguous-unicode-character-comment (不要使用不明確的 Unicode 字元)
+    "D415",   # ends-in-punctuation (註釋結尾應該有標點符號)
+    "TD003",  # missing-todo-link (TODO 沒有相關連結)
+    "FIX002", # flake8-fixme (註釋包含 TODO)
+
+    "B008",   # unction-call-in-default-argument (不要在默認參數中調用函數)
+    "FBT",    # flake8-boolean-trap (不要使用 True/False 作為函數的位置參數)
+    "SIM117", # multiple-with-statements (不要使用嵌套 with)
+    "EM",     # flake8-errmsg (錯誤訊息字串要先分配給變數)
+    "TRY003", # raise-vanilla-args (自定義例外包含額外的長訊息)
+    "TRY400", # error-instead-of-exception (logging 應該用 exception 取代 error)
+    # "G",      # flake8-logging-format (各種對 logging 的限制)
+
+    ### TODO: Enable gradually
+    "D101", # undocumented-public-class (未註釋的 public class)
+    "D104", # undocumented-public-package (未註釋的 public package)
+    "D107", # undocumented-public-init (未註釋的 public __init__)
+]
+
+
+[tool.ruff.lint.isort]
+known-first-party = []
+split-on-trailing-comma = false
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-type-checking]
+exempt-modules = ["typing", "typing_extensions"]
+
+[tool.ruff.lint.pylint]
+max-returns = 6     # default is 6
+max-branches = 12   # default is 12
+max-args = 6        # default is 5
+max-statements = 50 # default is 50
+
+[tool.ruff.format]
+docstring-code-format = true
+skip-magic-trailing-comma = false # 預設就是 false。 當你想要盡可能消除尾隨逗號時候可以暫時性開啟
+
+
+# mypy
+# <https://mypy.readthedocs.io/en/stable/config_file.html>
+[tool.mypy]
+python_version = "3.13"
+plugins = ["pydantic.mypy"]
+exclude = ["playground", "x_dev"]
+strict = true
+pretty = true
+# <https://mypy.readthedocs.io/en/stable/error_code_list2.html>
+enable_error_code = [
+    "possibly-undefined",
+    "redundant-expr",
+    "truthy-iterable",
+    "explicit-override",
+    "mutable-override",
+]
+
+
+# cz
+# <https://commitizen-tools.github.io/commitizen/config/>
+[tool.commitizen]
+name = "cz_gitmoji"
