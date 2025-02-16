@@ -12,15 +12,19 @@ dependencies = [
     "seaborn>=0.13.2",
     "joblib>=1.4.2",
     "scikit-learn>=1.6.1",
+    "opencc>=1.1.9",
+    "wordcloud>=1.9.4",
+    "jieba>=0.42.1",
+    "snownlp>=0.12.3",
 ]
 
 [project.urls]
-Repository = "https://git.thebarkingdog.tw/tbd/phone-service"
+Repository = "https://github.com/chesterXalan/Classwork-PythonAIIntegratedDevelopment"
 
 [dependency-groups]
 dev = [
     "pre-commit>=4.1.0",
-    "ruff>=0.9.4",
+    "ruff>=0.9.6",
     "mypy>=1.15.0",
     "commitizen>=4.1.1",
     "cz-conventional-gitmoji>=0.6.1",
@@ -32,11 +36,11 @@ jupyter = ["notebook>=7.3.2", "ipywidgets>=8.1.5"]
 # ruff
 # <https://docs.astral.sh/ruff/settings/>
 [tool.ruff]
-required-version = ">=0.9.4"
+required-version = ">=0.9"
 target-version = "py313"
 output-format = "concise"
 show-fixes = true
-line-length = 120
+line-length = 88
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -63,12 +67,6 @@ ignore = [
     "EM",     # flake8-errmsg (錯誤訊息字串要先分配給變數)
     "TRY003", # raise-vanilla-args (自定義例外包含額外的長訊息)
     "TRY400", # error-instead-of-exception (logging 應該用 exception 取代 error)
-    # "G",      # flake8-logging-format (各種對 logging 的限制)
-
-    ### TODO: Enable gradually
-    "D101", # undocumented-public-class (未註釋的 public class)
-    "D104", # undocumented-public-package (未註釋的 public package)
-    "D107", # undocumented-public-init (未註釋的 public __init__)
 ]
 
 
@@ -76,29 +74,20 @@ ignore = [
 known-first-party = []
 split-on-trailing-comma = false
 
-[tool.ruff.lint.pydocstyle]
-convention = "google"
-
 [tool.ruff.lint.flake8-type-checking]
 exempt-modules = ["typing", "typing_extensions"]
 
 [tool.ruff.lint.pylint]
-max-returns = 6     # default is 6
-max-branches = 12   # default is 12
-max-args = 6        # default is 5
-max-statements = 50 # default is 50
-
-[tool.ruff.format]
-docstring-code-format = true
-skip-magic-trailing-comma = false # 預設就是 false。 當你想要盡可能消除尾隨逗號時候可以暫時性開啟
-
+max-returns = 6
+max-branches = 12
+max-args = 6
+max-statements = 50
 
 # mypy
 # <https://mypy.readthedocs.io/en/stable/config_file.html>
 [tool.mypy]
 python_version = "3.13"
 plugins = ["pydantic.mypy"]
-exclude = ["playground", "x_dev"]
 strict = true
 pretty = true
 # <https://mypy.readthedocs.io/en/stable/error_code_list2.html>
