@@ -34,8 +34,10 @@ install:
 	uv sync --all-groups
 
 update:
-	uv lock --upgrade
+	uv run scripts/update.py
 
+lock_update:
+	uv lock --upgrade
 
 help:
 	@echo "lint - run ruff check and ruff format and mypy"
@@ -47,6 +49,7 @@ help:
 	@echo "clear_all - remove all __pycache__, linter and test cache"
 
 	@echo "install - install all dependencies"
-	@echo "update - update lock file"
+	@echo "update - update lock file and install all dependencies"
+	@echo "update_lock - update lock file"
 
 	@echo "help - show this help message"

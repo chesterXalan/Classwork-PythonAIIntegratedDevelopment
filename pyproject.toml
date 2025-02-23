@@ -18,19 +18,39 @@ dependencies = [
     "snownlp>=0.12.3",
 ]
 
+[project.scripts]
+update = "scripts.update:main"
+
 [project.urls]
 Repository = "https://github.com/chesterXalan/Classwork-PythonAIIntegratedDevelopment"
 
 [dependency-groups]
 dev = [
     "pre-commit>=4.1.0",
-    "ruff>=0.9.6",
+    "ruff>=0.9.7",
     "mypy>=1.15.0",
-    "commitizen>=4.1.1",
+    "commitizen>=4.2.2",
     "cz-conventional-gitmoji>=0.6.1",
+    "shpyx>=0.0.32",
+    "typer>=0.15.1",
 ]
-type = ["pandas-stubs>=2.2.3.241126"]
-jupyter = ["notebook>=7.3.2", "ipywidgets>=8.1.5"]
+type = [
+    "pandas-stubs>=2.2.3.241126",
+]
+jupyter = [
+    "notebook>=7.3.2",
+    "ipywidgets>=8.1.5",
+]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "scripts",
+]
 
 
 # ruff
@@ -57,10 +77,11 @@ ignore = [
     "RUF001", # ambiguous-unicode-character-string (不要使用不明確的 Unicode 字元)
     "RUF002", # ambiguous-unicode-character-docstring (不要使用不明確的 Unicode 字元)
     "RUF003", # ambiguous-unicode-character-comment (不要使用不明確的 Unicode 字元)
-    "D415",   # ends-in-punctuation (註釋結尾應該有標點符號)
     "TD003",  # missing-todo-link (TODO 沒有相關連結)
     "FIX002", # flake8-fixme (註釋包含 TODO)
 
+    "S603",   # check for execution of untrusted input
+    "D",      # pydocstyle
     "B008",   # unction-call-in-default-argument (不要在默認參數中調用函數)
     "FBT",    # flake8-boolean-trap (不要使用 True/False 作為函數的位置參數)
     "SIM117", # multiple-with-statements (不要使用嵌套 with)
