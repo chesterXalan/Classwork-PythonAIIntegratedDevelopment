@@ -11,3 +11,4 @@ Python 人工智慧整合開發 上課內容
 - [20250302](https://github.com/chesterXalan/Classwork-PythonAIIntegratedDevelopment/tree/main/20250302)
 - [20250309](https://github.com/chesterXalan/Classwork-PythonAIIntegratedDevelopment/tree/main/20250309)
 - [20250316](https://github.com/chesterXalan/Classwork-PythonAIIntegratedDevelopment/tree/main/20250316)
+- [20250323](https://github.com/chesterXalan/Classwork-PythonAIIntegratedDevelopment/tree/main/20250323)
