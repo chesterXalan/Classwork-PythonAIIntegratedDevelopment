@@ -16,6 +16,9 @@ dependencies = [
     "wordcloud>=1.9.4",
     "jieba>=0.42.1",
     "snownlp>=0.12.3",
+    "gensim>=4.3.3",
+    "tensorflow[and-cuda]>=2.19.0",
+    "nltk>=3.9.1",
 ]
 
 [project.scripts]
@@ -36,6 +39,7 @@ dev = [
 ]
 type = [
     "pandas-stubs>=2.2.3.250308",
+    "types-tensorflow>=2.18.0.20250319",
 ]
 jupyter = [
     "notebook>=7.3.3",
