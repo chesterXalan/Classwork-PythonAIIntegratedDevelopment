@@ -3,17 +3,20 @@ import subprocess
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Literal, Self, override
+from typing import Annotated, Literal, Self
 
 import shpyx
 import tomlkit
 import typer
+from overrides import override
 from tomlkit.items import Array as TomlArray
 
-type DependencyMap = dict[str | None, list[str]]  # [GroupName, Dependencies]
+DependencyMap = dict[str | None, list[str]]  # [GroupName, Dependencies]
 
 
-def _run_command(cmd: str | list[str], *, log_output: bool = False) -> shpyx.ShellCmdResult:
+def _run_command(
+    cmd: str | list[str], *, log_output: bool = False
+) -> shpyx.ShellCmdResult:
     return shpyx.run(cmd, log_cmd=False, log_output=log_output)
 
 
@@ -81,7 +84,10 @@ def restore_order(pyproject_path: Path, original_orders: DependencyMap) -> None:
         doc = tomlkit.load(f)
 
     # update main dependencies
-    updated_deps = {PackageSpec.from_dependency(dep).name: dep for dep in updated_data["project"]["dependencies"]}
+    updated_deps = {
+        PackageSpec.from_dependency(dep).name: dep
+        for dep in updated_data["project"]["dependencies"]
+    }
 
     new_deps = create_toml_array(
         [
@@ -100,7 +106,8 @@ def restore_order(pyproject_path: Path, original_orders: DependencyMap) -> None:
                 continue
 
             updated_group_deps = {
-                PackageSpec.from_dependency(dep).name: dep for dep in updated_data["dependency-groups"][group]
+                PackageSpec.from_dependency(dep).name: dep
+                for dep in updated_data["dependency-groups"][group]
             }
 
             new_group_deps = create_toml_array(
@@ -168,14 +175,18 @@ def uv_action(
         subprocess.check_call(command, stderr=subprocess.DEVNULL)
 
 
-def run_uv_command(all_dependencies: DependencyMap, verbose: bool = False, is_ci: bool = False) -> None:
+def run_uv_command(
+    all_dependencies: DependencyMap, verbose: bool = False, is_ci: bool = False
+) -> None:
     run_uv_action = functools.partial(uv_action, verbose=verbose, is_ci=is_ci)
 
     run_uv_action("lock")
 
     for group, dependencies in all_dependencies.items():
         # filter out packages with pinned versions
-        packages = [PackageSpec.from_dependency(dep) for dep in dependencies if "==" not in dep]
+        packages = [
+            PackageSpec.from_dependency(dep) for dep in dependencies if "==" not in dep
+        ]
 
         run_uv_action("remove", package_spec=packages, group=group)
         run_uv_action("add", package_spec=packages, group=group)
