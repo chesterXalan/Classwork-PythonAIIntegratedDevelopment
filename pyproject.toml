@@ -19,6 +19,8 @@ dependencies = [
     "gensim>=4.3.3",
     "tensorflow[and-cuda]>=2.19.0",
     "nltk>=3.9.1",
+    "transformers>=4.50.3",
+    "tf-keras>=2.19.0",
 ]
 
 [project.scripts]
